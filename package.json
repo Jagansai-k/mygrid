@@ -1,0 +1,47 @@
+{
+  "name": "mygrid",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Company-owned MyGrid monorepo. The root package is private and is not published.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "build-storybook": "turbo run build-storybook",
+    "dev": "turbo run dev --filter=playground --filter=docs",
+    "dev:playground": "turbo run dev --filter=playground",
+    "dev:docs": "turbo run dev --filter=docs",
+    "dev:storybook": "turbo run storybook --filter=@inno-grid/mygrid-react",
+    "dev:example-react": "turbo run dev --filter=example-react",
+    "dev:example-nextjs": "turbo run dev --filter=example-nextjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "turbo run build --filter=playground && playwright test",
+    "verify": "node scripts/check-foundation.mjs && turbo run build --filter=playground... && pnpm --filter playground verify",
+    "check": "pnpm format:check && pnpm build && pnpm lint && pnpm typecheck && pnpm test && pnpm build-storybook && node scripts/check-foundation.mjs && pnpm --filter playground verify",
+    "changeset": "changeset",
+    "version-packages": "changeset version"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:",
+    "@eslint/js": "catalog:",
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "globals": "catalog:",
+    "prettier": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}

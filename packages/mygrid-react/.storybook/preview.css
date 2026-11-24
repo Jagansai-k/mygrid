@@ -1,0 +1,4 @@
+.story-frame {
+  outline: 1px dashed var(--mygrid-color-border);
+  padding: 0.75rem;
+}

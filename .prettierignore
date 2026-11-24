@@ -1,0 +1,12 @@
+node_modules
+dist
+examples/nextjs/next-env.d.ts
+.turbo
+.next
+storybook-static
+playwright-report
+test-results
+blob-report
+coverage
+pnpm-lock.yaml
+*.tsbuildinfo

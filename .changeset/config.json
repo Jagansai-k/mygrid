@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.3/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "linked": [["@inno-grid/mygrid-core", "@inno-grid/mygrid-react", "@inno-grid/mygrid-themes"]],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["playground", "docs", "example-react", "example-nextjs"],
+  "privatePackages": {
+    "version": false,
+    "tag": false
+  }
+}

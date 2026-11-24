@@ -1,0 +1,26 @@
+{
+  "name": "example-react",
+  "private": true,
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host --port 4185 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host --port 4185 --strictPort",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@inno-grid/mygrid-react": "workspace:*",
+    "@inno-grid/mygrid-themes": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}
