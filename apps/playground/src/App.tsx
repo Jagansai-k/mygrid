@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { MYGRID_CORE_VERSION, MYGRID_LIBRARY_NAME } from '@inno-grid/mygrid-core';
+import type { MyGridDensity, MyGridTheme } from '@inno-grid/mygrid-react';
 import { MYGRID_REACT_VERSION, MyGrid } from '@inno-grid/mygrid-react';
 import { MYGRID_THEMES_VERSION, themeTokens } from '@inno-grid/mygrid-themes';
+import { describeConsumer } from './package-consumer';
 import { MountErrorBoundary } from './mount-error-boundary';
 import { TokenValue } from './token-value';
 
@@ -18,7 +21,7 @@ const packages = [
   {
     name: '@inno-grid/mygrid-themes',
     version: MYGRID_THEMES_VERSION,
-    role: 'Opt-in stylesheet and the names of the base theme tokens.',
+    role: 'Opt-in light, dark, and density stylesheets. The React package does not import them.',
   },
 ] as const;
 
@@ -31,7 +34,20 @@ const notStarted = [
   'Keyboard grid navigation',
 ] as const;
 
+const themeChoices: readonly { id: MyGridTheme; label: string }[] = [
+  { id: 'light', label: 'Light' },
+  { id: 'dark', label: 'Dark' },
+];
+
+const densityChoices: readonly { id: MyGridDensity; label: string }[] = [
+  { id: 'compact', label: 'Compact' },
+  { id: 'default', label: 'Default' },
+  { id: 'comfortable', label: 'Comfortable' },
+];
+
 export function App() {
+  const [theme, setTheme] = useState<MyGridTheme>('light');
+  const [density, setDensity] = useState<MyGridDensity>('default');
   return (
     <div className="app">
       <a className="skip" href="#content">
@@ -72,8 +88,36 @@ export function App() {
           </section>
           <section className="panel stage" aria-labelledby="mount-heading">
             <h2 id="mount-heading">Mount</h2>
+            <div className="choices" role="group" aria-label="Theme">
+              {themeChoices.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  aria-pressed={theme === option.id}
+                  onClick={() => {
+                    setTheme(option.id);
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <div className="choices" role="group" aria-label="Density">
+              {densityChoices.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  aria-pressed={density === option.id}
+                  onClick={() => {
+                    setDensity(option.id);
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
             <MountErrorBoundary>
-              <MyGrid className="mount">
+              <MyGrid className="mount" theme={theme} density={density}>
                 <p className="kicker">React adapter</p>
                 <p>
                   <code>MyGrid</code> is mounted. Children render inside the root element. There is
@@ -84,7 +128,9 @@ export function App() {
           </section>
           <section className="panel" aria-labelledby="tokens-heading">
             <h2 id="tokens-heading">Theme tokens</h2>
-            <p>Values read from the base stylesheet after it loads.</p>
+            <p>
+              Values read from the document root. The mount uses the selected theme and density.
+            </p>
             <dl className="tokens">
               {Object.entries(themeTokens).map(([key, token]) => (
                 <div key={token}>
@@ -109,7 +155,7 @@ export function App() {
           </ul>
         </section>
       </main>
-      <footer>
+      <footer data-consumer={describeConsumer()}>
         <p>
           MyGrid is an independent library. It does not include AG Grid source, assets, or branding.
         </p>

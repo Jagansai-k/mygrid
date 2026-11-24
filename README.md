@@ -10,7 +10,7 @@ The npm organization is `inno-grid`. Publishable packages use the scope `@inno-g
 | -------------------------- | ------------------------------------------------------------ |
 | `@inno-grid/mygrid-core`   | Framework-independent TypeScript. No React and no DOM types. |
 | `@inno-grid/mygrid-react`  | React 19 client adapter. Grid logic does not belong here.    |
-| `@inno-grid/mygrid-themes` | Opt-in base stylesheet and token names.                      |
+| `@inno-grid/mygrid-themes` | Opt-in default, light, dark, and density stylesheets.        |
 
 Applications import the theme themselves:
 
@@ -54,9 +54,13 @@ pnpm dev:storybook
 pnpm dev:example-react
 pnpm dev:example-nextjs
 pnpm test
+pnpm typecheck
 pnpm test:e2e
 pnpm build
+pnpm clean
 ```
+
+`pnpm test` builds the three libraries, runs their unit tests, and imports the built packages to check exports, declarations, and the theme CSS. `pnpm typecheck` checks those entry points from TypeScript, including the CSS imports.
 
 `pnpm check` runs Prettier, ESLint, TypeScript, Vitest, the package builds, the Storybook build, and entry-point verification. `pnpm dev` builds workspace dependencies, then starts the playground and the docs site. Dev commands that start an app also build the packages they depend on.
 

@@ -22,6 +22,9 @@
       "dependsOn": ["^build"],
       "outputs": []
     },
+    "clean": {
+      "cache": false
+    },
     "storybook": {
       "dependsOn": ["^build"],
       "cache": false,

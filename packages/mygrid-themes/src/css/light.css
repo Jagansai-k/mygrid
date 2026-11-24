@@ -1,0 +1,12 @@
+:root,
+[data-mygrid-theme='light'] {
+  color-scheme: light;
+  --mygrid-font-family: 'Segoe UI', system-ui, sans-serif;
+  --mygrid-color-surface: #fffdf8;
+  --mygrid-color-text: #1b1914;
+  --mygrid-color-border: #d9d2c5;
+  --mygrid-color-header: #efeae1;
+  --mygrid-color-accent: #0c6b58;
+  --mygrid-radius: 0.5rem;
+  --mygrid-focus-ring: 2px solid #0c6b58;
+}

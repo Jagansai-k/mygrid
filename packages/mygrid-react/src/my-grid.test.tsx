@@ -20,6 +20,21 @@ describe('MyGrid', () => {
     expect(root?.getAttribute('data-mygrid-core-version')).toBe(MYGRID_CORE_VERSION);
     expect(root?.getAttribute('data-mygrid-react-version')).toBe(MYGRID_REACT_VERSION);
     expect(root?.className).toBe('mount');
+    expect(root?.hasAttribute('data-mygrid-theme')).toBe(false);
+    expect(root?.hasAttribute('data-mygrid-density')).toBe(false);
+    expect(root?.getAttribute('role')).toBeNull();
+  });
+
+  it('sets theme and density attributes from props', () => {
+    render(
+      <MyGrid theme="dark" density="compact">
+        <p>Themed</p>
+      </MyGrid>,
+    );
+
+    const root = screen.getByText('Themed').parentElement;
+    expect(root?.getAttribute('data-mygrid-theme')).toBe('dark');
+    expect(root?.getAttribute('data-mygrid-density')).toBe('compact');
     expect(root?.getAttribute('role')).toBeNull();
   });
 

@@ -31,12 +31,14 @@ import { MyGrid } from '@inno-grid/mygrid-react';
 
 export function Example() {
   return (
-    <MyGrid>
+    <MyGrid theme="dark" density="compact">
       <p>Adapter mounted.</p>
     </MyGrid>
   );
 }
 ```
+
+`theme.css` is the stylesheet to import. It contains the light default, the dark overrides, and the density scales. Omit `theme` and `density` to keep the light default and the default density. `light.css`, `dark.css`, and `density.css` are available when a host wants one file instead of the bundle.
 
 In the Next.js App Router, a Server Component may import `MyGrid` directly. The package entry is a client module. Import `@inno-grid/mygrid-core` from server code when you only need the framework-free API. The Next.js sample in `examples/nextjs` shows that split.
 

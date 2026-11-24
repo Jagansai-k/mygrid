@@ -13,6 +13,7 @@ Turborepo tasks:
 | `test`            | Dependent packages build first. Vitest then runs inside the package.      |
 | `dev`             | Dependent packages build first, then the dev server stays up.             |
 | `build-storybook` | Dependent packages build first, then Storybook writes `storybook-static`. |
+| `clean`           | Deletes `dist` in each library that defines the script. Not cached.       |
 
 The React package tests import `@inno-grid/mygrid-core` through its package export, which points at `dist`. That is why tests wait for the core build.
 
@@ -28,12 +29,12 @@ runs, in order:
 2. `turbo run build`, so ESLint can see the generated declaration files
 3. `eslint .`
 4. `turbo run typecheck`
-5. `turbo run test`
+5. `pnpm test`, which builds the three libraries, runs Vitest, and imports the built packages
 6. `turbo run build-storybook`
 7. `node scripts/check-foundation.mjs`
 8. `pnpm --filter playground verify`
 
-Step 8 imports the built packages from Node and checks the client directive, the theme file, and the core bundle.
+Steps 5 and 8 import the built packages from Node. The import checks the client directive, the core bundle, the React package's dependency on core, every theme CSS export, and the declaration files next to each JavaScript entry. The playground file `src/package-consumer.ts` is part of `pnpm typecheck` and imports the same entry points, including the CSS.
 
 Playwright is not inside `pnpm check` because it needs a browser install:
 

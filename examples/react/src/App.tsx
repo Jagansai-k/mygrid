@@ -12,6 +12,9 @@ export function App() {
       <MyGrid>
         <p>Adapter mounted. The data grid is not implemented.</p>
       </MyGrid>
+      <MyGrid className="example-mount" theme="dark" density="compact">
+        <p>Dark theme and compact density are attributes on this mount.</p>
+      </MyGrid>
     </main>
   );
 }

@@ -2,27 +2,45 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
+import { themeEntryFiles, themeSourceFiles } from './src/theme-files.ts';
 
-function emitThemeStylesheet(): Plugin {
-  const source = readFileSync(resolve(import.meta.dirname, 'src/theme.css'), 'utf8');
+function emitThemeStylesheets(): Plugin {
+  const directory = resolve(import.meta.dirname, 'src/css');
+  const parts = themeSourceFiles.map((name) => ({
+    name,
+    source: readFileSync(resolve(directory, name), 'utf8'),
+  }));
+  const theme = parts.map((part) => part.source).join('\n');
+  const published = new Set<string>(themeEntryFiles);
+
   return {
-    name: 'emit-theme-stylesheet',
+    name: 'emit-theme-stylesheets',
     generateBundle() {
       this.emitFile({
         type: 'asset',
         fileName: 'theme.css',
-        source,
+        source: theme,
       });
+      for (const part of parts) {
+        if (!published.has(part.name)) {
+          continue;
+        }
+        this.emitFile({
+          type: 'asset',
+          fileName: part.name,
+          source: part.source,
+        });
+      }
     },
   };
 }
 
 export default defineConfig({
   plugins: [
-    emitThemeStylesheet(),
+    emitThemeStylesheets(),
     dts({
       include: ['src'],
-      exclude: ['src/**/*.test.ts'],
+      exclude: ['src/**/*.test.ts', 'src/theme-files.ts'],
       tsconfigPath: './tsconfig.build.json',
     }),
   ],

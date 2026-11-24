@@ -1,10 +1,15 @@
 {
   "name": "@inno-grid/mygrid-themes",
   "version": "0.0.0",
-  "description": "Base theme tokens and stylesheet for MyGrid.",
+  "description": "Default, light, and dark theme foundations for MyGrid.",
   "license": "UNLICENSED",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/theme.css",
+    "./dist/light.css",
+    "./dist/dark.css",
+    "./dist/density.css"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -12,19 +17,25 @@
     "dist"
   ],
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "style": "./dist/theme.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
-    "./theme.css": "./dist/theme.css"
+    "./theme.css": "./dist/theme.css",
+    "./light.css": "./dist/light.css",
+    "./dark.css": "./dist/dark.css",
+    "./density.css": "./dist/density.css"
   },
   "scripts": {
     "build": "vite build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
     "dev": "vite build --watch"
   },
   "devDependencies": {

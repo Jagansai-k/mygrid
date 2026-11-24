@@ -24,17 +24,19 @@ Build output: `dist/index.js`, `dist/index.d.ts`.
 
 ```tsx
 import { MyGrid, MYGRID_REACT_VERSION, reactGridAdapter } from '@inno-grid/mygrid-react';
-import type { MyGridProps } from '@inno-grid/mygrid-react';
+import type { MyGridDensity, MyGridProps, MyGridTheme } from '@inno-grid/mygrid-react';
 ```
 
-| Export                 | Meaning                                                  |
-| ---------------------- | -------------------------------------------------------- |
-| `MyGrid`               | Client component. Renders a root element and `children`. |
-| `MyGridProps`          | `className` and `children`.                              |
-| `reactGridAdapter`     | Frozen adapter whose framework is `react`.               |
-| `MYGRID_REACT_VERSION` | This package's version.                                  |
+| Export                 | Meaning                                                        |
+| ---------------------- | -------------------------------------------------------------- |
+| `MyGrid`               | Client component. Renders a root element and `children`.       |
+| `MyGridProps`          | `className`, `children`, optional `theme`, optional `density`. |
+| `MyGridTheme`          | `'light'` or `'dark'`.                                         |
+| `MyGridDensity`        | `'compact'`, `'default'`, or `'comfortable'`.                  |
+| `reactGridAdapter`     | Frozen adapter whose framework is `react`.                     |
+| `MYGRID_REACT_VERSION` | This package's version.                                        |
 
-The root element sets `data-mygrid="mygrid"` and `data-mygrid-adapter="react"`. It does not set `role="grid"`.
+The root element sets `data-mygrid="mygrid"` and `data-mygrid-adapter="react"`. It sets `data-mygrid-theme` and `data-mygrid-density` when those props are passed. It does not set `role="grid"`.
 
 Peers: `react@^19` and `react-dom@^19`.
 
@@ -44,19 +46,32 @@ Build output: `dist/index.js`, `dist/index.d.ts`. The JavaScript file starts wit
 
 ```ts
 import '@inno-grid/mygrid-themes/theme.css';
-import { MYGRID_THEMES_VERSION, themeStylesheet, themeTokens } from '@inno-grid/mygrid-themes';
-import type { ThemeToken, ThemeTokenName } from '@inno-grid/mygrid-themes';
+import {
+  defaultTheme,
+  densityNames,
+  MYGRID_THEMES_VERSION,
+  themeNames,
+  themeStylesheet,
+  themeStylesheets,
+  themeTokens,
+} from '@inno-grid/mygrid-themes';
+import type { DensityName, ThemeName, ThemeToken, ThemeTokenName } from '@inno-grid/mygrid-themes';
 ```
 
-| Export                               | Meaning                                            |
-| ------------------------------------ | -------------------------------------------------- |
-| `@inno-grid/mygrid-themes/theme.css` | Base stylesheet.                                   |
-| `themeStylesheet`                    | The same import path, as a string.                 |
-| `themeTokens`                        | Map of token name to `--mygrid-*` custom property. |
-| `ThemeToken` / `ThemeTokenName`      | Types for that map.                                |
-| `MYGRID_THEMES_VERSION`              | This package's version.                            |
+| Export                               | Meaning                                                        |
+| ------------------------------------ | -------------------------------------------------------------- |
+| `@inno-grid/mygrid-themes/theme.css` | Default stylesheet: light, dark, density, and mount rules.     |
+| `./light.css`, `./dark.css`          | Color foundations. Light is also the default on `:root`.       |
+| `./density.css`                      | `compact`, `default`, and `comfortable` spacing and type size. |
+| `themeStylesheet`                    | The `theme.css` import path, as a string.                      |
+| `themeStylesheets`                   | The four CSS import paths.                                     |
+| `defaultTheme`                       | `'light'`.                                                     |
+| `themeNames` / `densityNames`        | The public theme and density names.                            |
+| `themeTokens`                        | Map of token name to `--mygrid-*` custom property.             |
+| `ThemeToken` / `ThemeTokenName`      | Types for that map.                                            |
+| `MYGRID_THEMES_VERSION`              | This package's version.                                        |
 
-The stylesheet is copied to `dist/theme.css` during the Vite build. The JavaScript entry does not import it.
+The Vite build writes those CSS files into `dist`. The JavaScript entry does not import them. `structure.css` is a source file included in `theme.css`; it is not its own export.
 
 ## What is intentionally absent
 

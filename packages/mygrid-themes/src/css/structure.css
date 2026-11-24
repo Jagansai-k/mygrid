@@ -1,19 +1,8 @@
-:root {
-  --mygrid-font-family: 'Segoe UI', system-ui, sans-serif;
-  --mygrid-color-surface: #fffdf8;
-  --mygrid-color-text: #1b1914;
-  --mygrid-color-border: #d9d2c5;
-  --mygrid-color-header: #efeae1;
-  --mygrid-color-accent: #0c6b58;
-  --mygrid-space-cell-x: 0.75rem;
-  --mygrid-space-cell-y: 0.5rem;
-  --mygrid-radius: 0.5rem;
-  --mygrid-focus-ring: 2px solid #0c6b58;
-}
-
 [data-mygrid] {
   box-sizing: border-box;
   font-family: var(--mygrid-font-family);
+  font-size: var(--mygrid-font-size);
+  line-height: var(--mygrid-line-height);
   color: var(--mygrid-color-text);
   background: var(--mygrid-color-surface);
   border: 1px solid var(--mygrid-color-border);

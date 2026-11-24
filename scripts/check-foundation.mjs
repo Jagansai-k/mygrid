@@ -130,8 +130,34 @@ for (const pkg of publishable) {
   if (manifest.type !== 'module') {
     fail(`${pkg.name} must be an ES module`);
   }
-  if (!manifest.exports?.['.']) {
-    fail(`${pkg.name} is missing the "." export`);
+  const entry = manifest.exports?.['.'];
+  if (
+    entry?.types !== './dist/index.d.ts' ||
+    entry?.import !== './dist/index.js' ||
+    entry?.default !== './dist/index.js'
+  ) {
+    fail(`${pkg.name} "." export must point types, import, and default at dist`);
+  }
+  if (manifest.main !== './dist/index.js' || manifest.module !== './dist/index.js') {
+    fail(`${pkg.name} main and module must be ./dist/index.js`);
+  }
+  if (manifest.types !== './dist/index.d.ts') {
+    fail(`${pkg.name} types must be ./dist/index.d.ts`);
+  }
+  if (
+    !Array.isArray(manifest.files) ||
+    manifest.files.length === 0 ||
+    !manifest.files.every((file) => file === 'dist')
+  ) {
+    fail(`${pkg.name} must publish only dist`);
+  }
+  for (const script of ['build', 'test', 'typecheck', 'clean']) {
+    if (typeof manifest.scripts?.[script] !== 'string' || manifest.scripts[script].length === 0) {
+      fail(`${pkg.name} is missing the ${script} script`);
+    }
+  }
+  if (/file:|\/agent\/|\/Users\/|[A-Za-z]:\\/.test(JSON.stringify(manifest))) {
+    fail(`${pkg.name} contains a local absolute path`);
   }
   const exported = readConst(pkg.versionFile, pkg.versionConst);
   if (exported !== manifest.version) {
@@ -139,6 +165,47 @@ for (const pkg of publishable) {
       `${pkg.versionConst} is "${exported}" but package.json version is "${String(manifest.version)}"`,
     );
   }
+}
+
+const coreManifest = readJson(join(root, 'packages/mygrid-core/package.json'));
+if (coreManifest.dependencies || coreManifest.peerDependencies) {
+  fail('Core must not declare runtime or peer dependencies.');
+}
+
+const reactManifest = readJson(join(root, 'packages/mygrid-react/package.json'));
+if (
+  reactManifest.peerDependencies?.react !== '^19.0.0' ||
+  reactManifest.peerDependencies?.['react-dom'] !== '^19.0.0'
+) {
+  fail('React package must peer-depend on react and react-dom.');
+}
+if (reactManifest.dependencies?.['@inno-grid/mygrid-core'] !== 'workspace:*') {
+  fail('React package must depend on core through the workspace protocol.');
+}
+if (reactManifest.dependencies?.['@inno-grid/mygrid-themes']) {
+  fail('React package must not take a runtime dependency on themes.');
+}
+
+const themesManifest = readJson(join(root, 'packages/mygrid-themes/package.json'));
+for (const file of ['theme.css', 'light.css', 'dark.css', 'density.css']) {
+  if (themesManifest.exports?.[`./${file}`] !== `./dist/${file}`) {
+    fail(`@inno-grid/mygrid-themes is missing the ./${file} export`);
+  }
+}
+if (
+  !Array.isArray(themesManifest.sideEffects) ||
+  !themesManifest.sideEffects.includes('./dist/theme.css')
+) {
+  fail('Theme CSS must be listed in sideEffects so bundlers keep the stylesheets.');
+}
+
+for (const script of ['build', 'test', 'typecheck', 'clean']) {
+  if (typeof rootPackage.scripts?.[script] !== 'string') {
+    fail(`Root package is missing the ${script} script`);
+  }
+}
+if (!String(rootPackage.scripts?.test).includes('playground verify')) {
+  fail('Root test script must run the package consumer verification.');
 }
 
 const coreName = readConst('packages/mygrid-core/src/version.ts', 'MYGRID_LIBRARY_NAME');

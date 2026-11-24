@@ -23,3 +23,11 @@ export const WithClassName: Story = {
     children: 'The class name is forwarded to the root element.',
   },
 };
+
+export const DarkCompact: Story = {
+  args: {
+    theme: 'dark',
+    density: 'compact',
+    children: 'Dark theme and compact density. Still no cells.',
+  },
+};

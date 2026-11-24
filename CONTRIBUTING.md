@@ -18,19 +18,20 @@ pnpm test:e2e
 
 ## Day-to-day commands
 
-| Command                   | What it does                                    |
-| ------------------------- | ----------------------------------------------- |
-| `pnpm dev`                | Playground on port 4183 and docs on port 4184   |
-| `pnpm dev:playground`     | Playground only                                 |
-| `pnpm dev:docs`           | Docs site only                                  |
-| `pnpm dev:storybook`      | Storybook on port 6008                          |
-| `pnpm dev:example-react`  | Vite example on port 4185                       |
-| `pnpm dev:example-nextjs` | Next.js example on port 4186                    |
-| `pnpm test`               | Unit tests. Dependent packages are built first. |
-| `pnpm lint`               | ESLint from the repository root                 |
-| `pnpm typecheck`          | `tsc --noEmit` in every workspace package       |
-| `pnpm build`              | Library, app, and example builds                |
-| `pnpm format`             | Write Prettier formatting                       |
+| Command                   | What it does                                                                |
+| ------------------------- | --------------------------------------------------------------------------- |
+| `pnpm dev`                | Playground on port 4183 and docs on port 4184                               |
+| `pnpm dev:playground`     | Playground only                                                             |
+| `pnpm dev:docs`           | Docs site only                                                              |
+| `pnpm dev:storybook`      | Storybook on port 6008                                                      |
+| `pnpm dev:example-react`  | Vite example on port 4185                                                   |
+| `pnpm dev:example-nextjs` | Next.js example on port 4186                                                |
+| `pnpm test`               | Build the three libraries, run unit tests, and verify package entry points. |
+| `pnpm lint`               | ESLint from the repository root                                             |
+| `pnpm typecheck`          | `tsc --noEmit` in every workspace package                                   |
+| `pnpm build`              | Library, app, and example builds                                            |
+| `pnpm clean`              | Delete `dist` in the three libraries                                        |
+| `pnpm format`             | Write Prettier formatting                                                   |
 
 Dev tasks build workspace dependencies before the server starts, so the apps resolve `dist` entry points.
 

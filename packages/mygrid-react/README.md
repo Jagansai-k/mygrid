@@ -7,13 +7,17 @@ The entry module is a client component (`'use client'`) so a Next.js App Router 
 ## Public API
 
 - `MyGrid`
-- `MyGridProps`
+- `MyGridProps`, `MyGridTheme`, `MyGridDensity`
 - `reactGridAdapter`
 - `MYGRID_REACT_VERSION`
 
-`MyGrid` renders a root element and its children. It does not render columns, rows, or cells. Keep grid behavior in `@inno-grid/mygrid-core`; this package should only adapt it to React once that behavior exists.
+`MyGrid` renders a root element and its children. It does not render columns, rows, or cells. Optional `theme` and `density` props set `data-mygrid-theme` and `data-mygrid-density`. They do not implement theme logic. Keep grid behavior in `@inno-grid/mygrid-core`; this package should only adapt it to React once that behavior exists.
 
 Theme CSS is not imported automatically. Applications opt in with `@inno-grid/mygrid-themes/theme.css`. Storybook depends on the themes package for its preview and that dependency is not part of the published runtime.
+
+## Build
+
+`pnpm --filter @inno-grid/mygrid-react build` writes `dist/index.js` and `dist/index.d.ts`. The JavaScript file starts with `'use client'`. `clean` removes `dist`.
 
 ## Storybook
 

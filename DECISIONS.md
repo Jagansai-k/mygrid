@@ -14,7 +14,7 @@ Packages are imported by Next.js on the server and by Vite in the browser. A mod
 
 ## D4 — ESM only
 
-Published packages set `"type": "module"` and export a single `import` condition plus types. Vite 8 builds one ES2023 file per package through Rolldown. Library externals and the React `'use client'` banner are set with `build.rolldownOptions`. A CommonJS build is not part of the foundation. Next.js and Vite both consume the ESM output.
+Published packages set `"type": "module"`. `main` and `module` point at the ESM file, `types` points at the declarations, and `exports` offers `types`, `import`, and `default`. Vite 8 builds one ES2023 file per package through Rolldown. Library externals and the React `'use client'` directive are preserved by the build; the React package checks the directive with `build.rolldownOptions` only for externals. A CommonJS build is not part of the foundation. Next.js and Vite both consume the ESM output.
 
 ## D5 — React entry is a client module
 
@@ -22,7 +22,7 @@ The React package source and its built entry begin with `'use client'`. The Next
 
 ## D6 — Themes are opt-in
 
-The React package does not import CSS. Hosts import `@inno-grid/mygrid-themes/theme.css` when they want the base tokens. That keeps a server render from pulling a stylesheet as a hidden side effect, and it lets a host supply a different sheet later.
+The React package does not import CSS. Hosts import `@inno-grid/mygrid-themes/theme.css` when they want the default theme: light colors, default density, and the mount rules. `light.css`, `dark.css`, and `density.css` are separate exports for a host that wants one piece. `MyGrid` can set `data-mygrid-theme` and `data-mygrid-density`. Those attributes select foundations that already exist. They do not add grid chrome. The themes package lists its CSS files in `sideEffects` so a bundler keeps the import. The JavaScript entry stays free of CSS, so a server render does not pull a stylesheet just because the module was imported.
 
 ## D7 — React 19 only for now
 

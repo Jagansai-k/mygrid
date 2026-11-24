@@ -14,6 +14,9 @@ export default function Page() {
       <MyGrid>
         <p>The data grid is not implemented. This only mounts the adapter.</p>
       </MyGrid>
+      <MyGrid className="example-mount" theme="dark" density="compact">
+        <p>Dark theme and compact density travel as props from this Server Component.</p>
+      </MyGrid>
     </main>
   );
 }

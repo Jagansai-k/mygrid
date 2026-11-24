@@ -44,7 +44,7 @@ How that is kept true:
 - `scripts/check-foundation.mjs` walks the package sources and fails if those globals appear outside a function.
 - `apps/playground/scripts/verify-packages.mjs` imports the built packages in Node, where `window` is absent.
 
-Reading the DOM inside a function that runs after mount, such as a React effect in an application, is a host concern. The playground reads computed theme tokens in an effect. The packages do not.
+Reading the DOM inside a function that runs after mount is a host concern. The playground reads computed theme tokens while it renders. The packages do not.
 
 ## React and Next.js
 
@@ -60,15 +60,36 @@ The published React peer range is React 19, which is the version this repo insta
 
 ## Themes
 
-`theme.css` defines `--mygrid-*` custom properties and styles `[data-mygrid]`, the attribute `MyGrid` sets on its root. `themeTokens` in TypeScript lists the same custom properties. A unit test fails if the stylesheet and the token map drift.
+The default stylesheet is one import:
 
-The selectors do not imitate another product's theme. There is no header row, pinned column, or cell class system yet.
+```ts
+import '@inno-grid/mygrid-themes/theme.css';
+```
+
+That file is the concatenation of four sources, in cascade order:
+
+| Source          | What it sets                                                       |
+| --------------- | ------------------------------------------------------------------ |
+| `light.css`     | Default colors on `:root` and `[data-mygrid-theme="light"]`.       |
+| `dark.css`      | Color overrides on `[data-mygrid-theme="dark"]`.                   |
+| `density.css`   | Spacing and type size for `compact`, `default`, and `comfortable`. |
+| `structure.css` | Rules for `[data-mygrid]` that only _use_ the custom properties.   |
+
+`light.css`, `dark.css`, and `density.css` are also package exports, so a host can import one of them. `theme.css` is the entry that includes every foundation. The default color theme is light. The default density is `default`, set on `:root`, so a mount with no density attribute still has spacing.
+
+`MyGrid` sets `data-mygrid-theme` and `data-mygrid-density` only when the matching prop is passed. It does not import the stylesheet. Color variables are not declared on `[data-mygrid]` itself, so a `dark` attribute on that same element is not overwritten by the structural rule.
+
+`themeTokens` lists every `--mygrid-*` custom property. A unit test fails if the CSS sources and that map drift. `themeNames` and `densityNames` are the public name lists. The React prop unions are checked against those lists by the playground typecheck.
+
+These foundations style the mount shell. They do not style cells, headers, or rows, because those elements do not exist yet. The selectors do not imitate another product's theme.
 
 ## Public output
 
-Each publishable package is built with Vite in library mode, ES2023, ESM only. Minification is off so the published JavaScript stays readable; source maps are still emitted. `vite-plugin-dts` writes declarations from `tsconfig.build.json`. Package `exports` point at `dist`. There is no CommonJS build.
+Each publishable package is built with Vite in library mode, ES2023, ESM only. Minification is off so the published JavaScript stays readable; source maps are still emitted. `vite-plugin-dts` writes declarations from `tsconfig.build.json`. `main`, `module`, and `types` point at `dist`, and `exports` adds a `default` condition beside `import` and `types`. `files` is `["dist"]`. There is no CommonJS build. Each package has `build`, `test`, `typecheck`, and `clean`. The root package stays private and runs those four through Turborepo.
 
-`@inno-grid/mygrid-themes` also emits `dist/theme.css` and exposes it as `@inno-grid/mygrid-themes/theme.css`. The JavaScript entry does not import that file, so bundlers do not treat the JS module as having CSS side effects. `sideEffects` is `false` on all three packages.
+`@inno-grid/mygrid-themes` emits `dist/theme.css`, `dist/light.css`, `dist/dark.css`, and `dist/density.css`. The JavaScript entry does not import those files. `sideEffects` is `false` on core and React. The themes package lists the CSS files in `sideEffects` so a bundler keeps a stylesheet import.
+
+`apps/playground/src/package-consumer.ts` imports core, the React component types, the theme names, and every CSS export. `apps/playground/scripts/verify-packages.mjs` imports the built packages from Node and checks that core does not reference React, that the React bundle imports core, that the CSS exports resolve, and that the `.d.ts` files sit beside the JavaScript. `pnpm test` runs that script after the unit tests. Nothing publishes to npm.
 
 ## Toolchain
 

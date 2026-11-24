@@ -64,11 +64,12 @@ export function App() {
             <div>
               <dt>@inno-grid/mygrid-themes</dt>
               <dd>
-                Version {MYGRID_THEMES_VERSION}. Stylesheet <code>{themeStylesheet}</code>.
+                Version {MYGRID_THEMES_VERSION}. Default stylesheet <code>{themeStylesheet}</code>,
+                plus light, dark, and density exports.
               </dd>
             </div>
           </dl>
-          <MyGrid>
+          <MyGrid theme="light" density="default">
             <p>This mount is the same React entry an application imports. It has no cells.</p>
           </MyGrid>
         </section>
@@ -85,7 +86,10 @@ export function App() {
         </section>
         <section id="status" aria-labelledby="status-heading">
           <h2 id="status-heading">Status</h2>
-          <p>Phase 0, the repository foundation, is the work in this tree.</p>
+          <p>
+            The repository foundation and the three package builds are in this tree. Grid behavior
+            is not.
+          </p>
           <ul>
             <li>Core logic stays out of the React package.</li>
             <li>Library modules do not read browser globals while they initialize.</li>

@@ -1,0 +1,9 @@
+[data-mygrid-theme='dark'] {
+  color-scheme: dark;
+  --mygrid-color-surface: #1c1915;
+  --mygrid-color-text: #f4f1ea;
+  --mygrid-color-border: #3d3830;
+  --mygrid-color-header: #2a261f;
+  --mygrid-color-accent: #3dbea0;
+  --mygrid-focus-ring: 2px solid #3dbea0;
+}

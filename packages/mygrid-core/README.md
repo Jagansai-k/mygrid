@@ -15,4 +15,4 @@ This package has no React dependency and its TypeScript project does not include
 
 ## Build
 
-The package is ESM-only. `pnpm --filter @inno-grid/mygrid-core build` writes `dist/index.js` and `dist/index.d.ts` with Vite.
+The package is ESM-only and has no runtime dependencies. `main`, `module`, `types`, and `exports` point at `dist`, which is the only published directory. `pnpm --filter @inno-grid/mygrid-core build` writes `dist/index.js` and `dist/index.d.ts` with Vite. `clean` removes `dist`. An application can install this package without installing the React package.

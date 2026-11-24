@@ -10,7 +10,7 @@ This matrix tracks MyGrid's own scope. It is not a comparison with AG Grid, and 
 | Packages   | Framework-independent core                | Ready       | No React dependency and no DOM type library.                             |
 | Packages   | React adapter mount                       | Ready       | Renders a root and children. Does not render a grid.                     |
 | Packages   | Next.js App Router host                   | Ready       | Example reads core on the server and mounts the client adapter.          |
-| Packages   | Base theme tokens                         | Ready       | Opt-in CSS. Tokens cover the mount shell only.                           |
+| Packages   | Base theme tokens                         | Ready       | Opt-in CSS. Light, dark, and density style the mount shell only.         |
 | Packages   | Storybook                                 | Ready       | Stories for the mount, including a class name.                           |
 | Packages   | Unit tests                                | Ready       | Foundation behavior only.                                                |
 | Packages   | Browser test                              | Ready       | Playwright loads the playground.                                         |
@@ -27,7 +27,8 @@ This matrix tracks MyGrid's own scope. It is not a comparison with AG Grid, and 
 | Grid       | Keyboard navigation                       | Not started |                                                                          |
 | Grid       | Accessibility of grid cells               | Not started | The mount shell is a plain element, not a grid widget.                   |
 | Grid       | Data source, updates, or infinite loading | Not started |                                                                          |
-| Theming    | Themes for a rendered grid                | Not started | Only mount-shell tokens exist.                                           |
+| Theming    | Light, dark, and density foundations      | Ready       | CSS custom properties on the mount. Default theme is light.              |
+| Theming    | Themes for a rendered grid                | Not started | No cell, header, or row rules yet.                                       |
 | Adapters   | Vue, Angular, or other frameworks         | Not started | `GridAdapter` is the extension point. No extra package exists.           |
 
 "Ready" means the foundation item exists and is covered by a check in this repo. It does not mean a grid capability exists.
