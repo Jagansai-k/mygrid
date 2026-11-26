@@ -1,6 +1,6 @@
 {
   "name": "@inno-grid/mygrid-themes",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Default, light, and dark theme foundations for MyGrid.",
   "license": "MIT",
   "type": "module",
