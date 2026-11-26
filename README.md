@@ -1,6 +1,6 @@
 # MyGrid
 
-MyGrid is a company-owned data grid library. This repository is the monorepo foundation: package boundaries, build and test tooling, a React adapter mount, a base theme, and sample hosts. It does not implement a data grid, and it does not claim feature parity with AG Grid or any other product.
+MyGrid is a company-owned data grid library. This repository holds the core engine, a React grid, a base theme, and sample hosts. It does not claim feature parity with any other product.
 
 The npm organization is `inno-grid`. Publishable packages use the scope `@inno-grid`. The root package is private. The three library packages are public on purpose, because the free npm plan is in use, and each sets `"publishConfig": { "access": "public" }`. Nothing in this repository publishes to npm. The GitHub repository is intended to stay private.
 
@@ -9,7 +9,7 @@ The npm organization is `inno-grid`. Publishable packages use the scope `@inno-g
 | Package                    | Role                                                         |
 | -------------------------- | ------------------------------------------------------------ |
 | `@inno-grid/mygrid-core`   | Framework-independent TypeScript. No React and no DOM types. |
-| `@inno-grid/mygrid-react`  | React 19 client adapter. Grid logic does not belong here.    |
+| `@inno-grid/mygrid-react`  | React 19 client grid. Behavior stays in the core package. |
 | `@inno-grid/mygrid-themes` | Opt-in default, light, dark, and density stylesheets.        |
 
 Applications import the theme themselves:
@@ -19,7 +19,7 @@ import '@inno-grid/mygrid-themes/theme.css';
 import { MyGrid } from '@inno-grid/mygrid-react';
 ```
 
-`MyGrid` renders a root element and its children. It does not render columns, rows, or cells.
+`MyGrid` renders column headers, rows, and cells when `columnDefs` is set. Omit it to render children only. Import the theme stylesheet in the host. The React package does not import CSS.
 
 ## Repository layout
 
@@ -71,11 +71,13 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-## Versioning
+## Versions
 
-[Changesets](https://github.com/changesets/changesets) links the three publishable packages. Add a changeset with `pnpm changeset`. `pnpm version-packages` applies changesets locally and does not publish. There is no publish script.
+The three libraries are a linked Changeset set. `pnpm changeset` records a patch, minor, or major bump. `pnpm version-packages` applies it, rewrites the changelogs, and copies the new version into each `src/version.ts` constant. It does not commit and it does not publish.
 
-The license is `UNLICENSED`. Choose an SPDX license before the first npm release. Public npm access is not a grant of rights. See `LICENSE`.
+`pnpm pack:check` packs the three archives and checks their entry points. `pnpm release:publish` is the publish command. It refuses to run while the version is `0.0.0`. The steps and the GitHub Environment approval are in [docs/releasing.md](docs/releasing.md) and [docs/publishing.md](docs/publishing.md).
+
+MyGrid is licensed under the MIT License, copyright (c) 2026 inno-grid. Commercial use is permitted. You may modify and redistribute the software. Copyright and license notices must stay with copies and substantial portions. The license includes its warranty disclaimer. See `LICENSE`.
 
 ## Further reading
 
@@ -84,6 +86,9 @@ The license is `UNLICENSED`. Choose an SPDX license before the first npm release
 - [FEATURE_MATRIX.md](FEATURE_MATRIX.md) — capability status, without a parity claim
 - [DECISIONS.md](DECISIONS.md) — decisions already made
 - [CONTRIBUTING.md](CONTRIBUTING.md) — how to work in the repo
-- [docs/getting-started.md](docs/getting-started.md) — install and run
+- [docs/getting-started.md](docs/getting-started.md) — install, run, and the documentation site
+- [apps/docs](apps/docs) — v1 documentation website, served by `pnpm dev:docs`
+- [docs/publishing.md](docs/publishing.md) — npm archive rules and authentication
+- [docs/releasing.md](docs/releasing.md) — Changesets and the first release checklist
 - [docs/development.md](docs/development.md) — toolchain details
 - [docs/packages.md](docs/packages.md) — public entry points

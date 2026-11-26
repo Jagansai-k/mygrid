@@ -1,9 +1,12 @@
 {
   "name": "@inno-grid/mygrid-react",
   "version": "0.0.0",
-  "description": "React adapter for MyGrid. Grid rendering is not implemented yet.",
-  "license": "UNLICENSED",
+  "description": "React adapter for MyGrid. Renders the core grid in a client component.",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -24,8 +27,10 @@
   "scripts": {
     "build": "vite build && node ./scripts/assert-client-entry.mjs",
     "test": "vitest run",
+    "bench:virtual": "vitest run --config vitest.bench.config.ts src/virtual.bench.ts",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
+    "prepublishOnly": "node ../../scripts/assert-release-ready.mjs",
     "dev": "vite build --watch",
     "storybook": "storybook dev -p 6008 --host 0.0.0.0 --no-open",
     "build-storybook": "storybook build -o storybook-static"
@@ -55,5 +60,10 @@
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vitest": "catalog:"
-  }
+  },
+"repository": {
+  "type": "git",
+  "url": "https://github.com/Jagansai-k/mygrid.git",
+  "directory": "packages/mygrid-react"
+}
 }

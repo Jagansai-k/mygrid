@@ -108,6 +108,9 @@ if (rootPackage.private !== true) {
 if (rootPackage.name !== 'mygrid') {
   fail(`Unexpected root package name: ${String(rootPackage.name)}`);
 }
+if (rootPackage.license !== 'MIT') {
+  fail('The root package license must be MIT.');
+}
 
 const workspace = readFileSync(join(root, 'pnpm-workspace.yaml'), 'utf8');
 for (const glob of ['packages/*', 'apps/*', 'examples/*']) {
@@ -126,6 +129,9 @@ for (const pkg of publishable) {
   }
   if (manifest.publishConfig?.access !== 'public') {
     fail(`${pkg.name} must set publishConfig.access to "public"`);
+  }
+  if (manifest.license !== 'MIT') {
+    fail(`${pkg.name} license must be MIT`);
   }
   if (manifest.type !== 'module') {
     fail(`${pkg.name} must be an ES module`);
@@ -158,6 +164,13 @@ for (const pkg of publishable) {
   }
   if (/file:|\/agent\/|\/Users\/|[A-Za-z]:\\/.test(JSON.stringify(manifest))) {
     fail(`${pkg.name} contains a local absolute path`);
+  }
+  if (manifest.engines?.node !== '>=22') {
+    fail(`${pkg.name} must set engines.node to >=22`);
+  }
+  const packageLicense = readFileSync(join(root, pkg.directory, 'LICENSE'), 'utf8');
+  if (packageLicense !== readFileSync(join(root, 'LICENSE'), 'utf8')) {
+    fail(`${pkg.name} LICENSE must match the repository LICENSE`);
   }
   const exported = readConst(pkg.versionFile, pkg.versionConst);
   if (exported !== manifest.version) {

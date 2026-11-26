@@ -34,6 +34,8 @@ export const themeTokens = {
   spaceCellY: '--mygrid-space-cell-y',
   radius: '--mygrid-radius',
   focusRing: '--mygrid-focus-ring',
+  rowHeight: '--mygrid-row-height',
+  headerHeight: '--mygrid-header-height',
 } as const;
 
 export type ThemeTokenName = keyof typeof themeTokens;

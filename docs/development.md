@@ -53,4 +53,4 @@ The two React entry files turn off `@typescript-eslint/no-unused-expressions` so
 
 ## CI
 
-`.github/workflows/ci.yml` installs with a frozen lockfile, runs `pnpm check`, installs Chromium, and runs `pnpm test:e2e`. The workflow is ready for the private GitHub repository. It does not publish packages.
+`.github/workflows/ci.yml` installs with a frozen lockfile, runs `pnpm check`, runs `pnpm pack:check`, installs Chromium, and runs `pnpm test:e2e`. `.github/workflows/release-pr.yml` opens a Changesets version pull request. `.github/workflows/publish.yml` can publish only after a maintainer dispatches it and the `npm` environment approves. The CI workflow does not publish packages.

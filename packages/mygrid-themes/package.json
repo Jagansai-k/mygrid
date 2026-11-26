@@ -2,8 +2,11 @@
   "name": "@inno-grid/mygrid-themes",
   "version": "0.0.0",
   "description": "Default, light, and dark theme foundations for MyGrid.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "sideEffects": [
     "./dist/theme.css",
     "./dist/light.css",
@@ -36,6 +39,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
+    "prepublishOnly": "node ../../scripts/assert-release-ready.mjs",
     "dev": "vite build --watch"
   },
   "devDependencies": {

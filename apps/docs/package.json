@@ -2,7 +2,7 @@
   "name": "docs",
   "private": true,
   "version": "0.0.0",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite --host --port 4184 --strictPort",

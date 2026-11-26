@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Mounted: Story = {
   args: {
-    children: 'React adapter mount point. Cell rendering is not implemented.',
+    children: 'Without column definitions, MyGrid renders children and no table.',
   },
 };
 
@@ -28,6 +28,23 @@ export const DarkCompact: Story = {
   args: {
     theme: 'dark',
     density: 'compact',
-    children: 'Dark theme and compact density. Still no cells.',
+    children: 'Dark theme and compact density.',
   },
+};
+
+export const WithRows: Story = {
+  render: () => (
+    <MyGrid<{ id: string; name: string; department: string }>
+      columnDefs={[
+        { field: 'name', headerName: 'Name', sortable: true, filterable: true },
+        { field: 'department', headerName: 'Department', sortable: true },
+      ]}
+      rowData={[
+        { id: '1', name: 'Ada', department: 'Engineering' },
+        { id: '2', name: 'Grace', department: 'Research' },
+      ]}
+      height={280}
+      pagination={{ enabled: true, pageSize: 10, pageSizeOptions: [10, 25, 50, 100] }}
+    />
+  ),
 };

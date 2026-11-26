@@ -1,5 +1,10 @@
 [data-mygrid] {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   font-family: var(--mygrid-font-family);
   font-size: var(--mygrid-font-size);
   line-height: var(--mygrid-line-height);
@@ -13,4 +18,177 @@
 [data-mygrid]:focus-visible {
   outline: var(--mygrid-focus-ring);
   outline-offset: 2px;
+}
+
+[data-mygrid] * {
+  box-sizing: border-box;
+}
+
+[data-mygrid] .mygrid-toolbar,
+[data-mygrid] .mygrid-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-mygrid] .mygrid-footer {
+  border-top: 1px solid var(--mygrid-color-border);
+  padding-top: var(--mygrid-space-cell-y);
+  margin-top: var(--mygrid-space-cell-y);
+}
+
+[data-mygrid] .mygrid-scroll {
+  overflow: auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+}
+
+[data-mygrid] table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 100%;
+}
+
+[data-mygrid] th,
+[data-mygrid] td {
+  padding: var(--mygrid-space-cell-y) var(--mygrid-space-cell-x);
+  border-bottom: 1px solid var(--mygrid-color-border);
+  text-align: left;
+  vertical-align: middle;
+  background: var(--mygrid-color-surface);
+  min-width: 6rem;
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-mygrid] td {
+  height: var(--mygrid-row-height);
+}
+
+[data-mygrid] th {
+  height: var(--mygrid-header-height);
+  background: var(--mygrid-color-header);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+[data-mygrid] .mygrid-pin-left,
+[data-mygrid] .mygrid-pin-right {
+  position: sticky;
+  z-index: 1;
+}
+
+[data-mygrid] thead .mygrid-pin-left,
+[data-mygrid] thead .mygrid-pin-right {
+  z-index: 3;
+  background: var(--mygrid-color-header);
+}
+
+[data-mygrid] .mygrid-check {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  max-width: 2.75rem;
+  text-align: center;
+}
+
+[data-mygrid] tbody tr:hover td {
+  background: color-mix(in srgb, var(--mygrid-color-accent) 8%, var(--mygrid-color-surface));
+}
+
+[data-mygrid] tr[data-selected='true'] td {
+  background: color-mix(in srgb, var(--mygrid-color-accent) 16%, var(--mygrid-color-surface));
+}
+
+[data-mygrid] th[data-filtered='true'] {
+  box-shadow: inset 0 -2px 0 var(--mygrid-color-accent);
+}
+
+[data-mygrid] button,
+[data-mygrid] input,
+[data-mygrid] select {
+  font: inherit;
+  color: inherit;
+}
+
+[data-mygrid] button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+[data-mygrid] button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+[data-mygrid] button:focus-visible,
+[data-mygrid] input:focus-visible,
+[data-mygrid] select:focus-visible {
+  outline: var(--mygrid-focus-ring);
+  outline-offset: 2px;
+}
+
+[data-mygrid] .mygrid-sort {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+[data-mygrid] .mygrid-filter {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+[data-mygrid] .mygrid-filter input,
+[data-mygrid] .mygrid-filter select,
+[data-mygrid] .mygrid-footer select {
+  background: var(--mygrid-color-surface);
+  border: 1px solid var(--mygrid-color-border);
+  border-radius: var(--mygrid-radius);
+  padding: 0.15rem 0.4rem;
+  min-width: 0;
+}
+
+[data-mygrid] .mygrid-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+[data-mygrid] .mygrid-status {
+  color: color-mix(in srgb, var(--mygrid-color-text) 70%, var(--mygrid-color-surface));
+}
+
+[data-mygrid] .mygrid-spacer td,
+[data-mygrid] .mygrid-col-spacer {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+[data-mygrid] .mygrid-metrics {
+  margin: 0;
+}
+
+[data-mygrid] .mygrid-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

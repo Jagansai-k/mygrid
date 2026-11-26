@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     dts({
       include: ['src'],
-      exclude: ['src/**/*.test.ts'],
+      exclude: ['src/**/*.test.ts', 'src/**/*.bench.ts'],
       tsconfigPath: './tsconfig.build.json',
     }),
   ],

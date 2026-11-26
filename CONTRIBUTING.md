@@ -50,22 +50,23 @@ Dev tasks build workspace dependencies before the server starts, so the apps res
 
 ## Versions
 
-The exported version constant in each package must match `package.json`. A unit test and `scripts/check-foundation.mjs` both compare them. When Changesets bumps a version, update the matching `src/version.ts` constant in the same change.
+The exported version constant in each package must match `package.json`. A unit test and `scripts/check-foundation.mjs` both compare them. `pnpm version-packages` updates the manifests, the changelogs, and the version constants. It does not commit.
 
 ```bash
 pnpm changeset
 pnpm version-packages
+pnpm pack:check
 ```
 
-`version-packages` rewrites versions and changelogs. It does not publish, and it does not commit. Do not add an npm publish script until a license is chosen and a maintainer intends to release.
+`pnpm release:publish` is the only publish command. It refuses while the version is `0.0.0` or the license is not MIT. The release pull request workflow does not publish. The manual `Publish` workflow requires the GitHub Environment `npm`. See `docs/publishing.md` and `docs/releasing.md`. The MIT terms are in `LICENSE`.
 
 The three libraries are linked. Apps and examples are private and ignored.
 
 ## Tests
 
 - Core and themes tests run in Node.
-- The React mount test runs in jsdom. The adapter descriptor test runs in Node, which also shows that importing the React entry does not need a browser.
-- Playwright should keep asserting that the playground mount is not exposed as `role="grid"` until a real grid exists.
+- The React grid test runs in jsdom. The adapter descriptor test runs in Node, which also shows that importing the React entry does not need a browser.
+- Playwright asserts the playground table and that the mount root is not exposed as `role="grid"`. The table is a native table. Spreadsheet keyboard navigation is not implemented.
 
 ## Generated output
 

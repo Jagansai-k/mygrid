@@ -2,8 +2,11 @@
   "name": "@inno-grid/mygrid-core",
   "version": "0.0.0",
   "description": "Framework-independent foundation for the MyGrid data grid.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -24,8 +27,12 @@
   "scripts": {
     "build": "vite build",
     "test": "vitest run",
+    "bench:sort": "vitest run --config vitest.bench.config.ts src/sort/sort.bench.ts",
+    "bench:filter": "vitest run --config vitest.bench.config.ts src/filter/filter.bench.ts",
+    "bench:page": "vitest run --config vitest.bench.config.ts src/pagination/page.bench.ts",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
+    "prepublishOnly": "node ../../scripts/assert-release-ready.mjs",
     "dev": "vite build --watch"
   },
   "devDependencies": {
@@ -34,5 +41,10 @@
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vitest": "catalog:"
-  }
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/Jagansai-k/mygrid.git",
+  "directory": "packages/mygrid-core"
+}
 }

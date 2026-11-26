@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "Company-owned MyGrid monorepo. The root package is private and is not published.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@10.33.4",
   "engines": {
@@ -24,11 +24,13 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run build --filter=@inno-grid/mygrid-core --filter=@inno-grid/mygrid-react --filter=@inno-grid/mygrid-themes && turbo run test && pnpm --filter playground verify",
     "clean": "turbo run clean",
-    "test:e2e": "turbo run build --filter=playground && playwright test",
+    "test:e2e": "turbo run build --filter=playground --filter=docs && playwright test",
     "verify": "node scripts/check-foundation.mjs && turbo run build --filter=playground... && pnpm --filter playground verify",
     "check": "pnpm format:check && pnpm build && pnpm lint && pnpm typecheck && pnpm test && pnpm build-storybook && node scripts/check-foundation.mjs && pnpm --filter playground verify",
     "changeset": "changeset",
-    "version-packages": "changeset version"
+    "version-packages": "changeset version && node scripts/sync-versions.mjs",
+    "pack:check": "node scripts/pack-packages.mjs",
+    "release:publish": "node scripts/publish-packages.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
@@ -44,5 +46,9 @@
     "turbo": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:"
-  }
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/Jagansai-k/mygrid.git"
+}
 }

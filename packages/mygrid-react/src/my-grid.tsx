@@ -1,44 +1,98 @@
 'use client';
 
 import { MYGRID_CORE_VERSION, MYGRID_LIBRARY_NAME } from '@inno-grid/mygrid-core';
-import type { ReactNode } from 'react';
+import type { RowData } from '@inno-grid/mygrid-core';
+import type { CSSProperties } from 'react';
 import { reactGridAdapter } from './adapter';
+import { GridView } from './grid-view';
+import type { MyGridProps } from './grid-props';
+import { useGridApi } from './use-grid-api';
 import { MYGRID_REACT_VERSION } from './version';
 
-/** Names match `@inno-grid/mygrid-themes` theme selectors. */
-export type MyGridTheme = 'light' | 'dark';
-
-/** Names match `@inno-grid/mygrid-themes` density selectors. */
-export type MyGridDensity = 'compact' | 'default' | 'comfortable';
-
-export interface MyGridProps {
-  className?: string;
-  children?: ReactNode;
-  /** Sets `data-mygrid-theme` when the themes stylesheet is loaded. */
-  theme?: MyGridTheme;
-  /** Sets `data-mygrid-density` when the themes stylesheet is loaded. */
-  density?: MyGridDensity;
-}
+export type {
+  MyGridDensity,
+  MyGridFilterKind,
+  MyGridProps,
+  MyGridTheme,
+  MyGridVirtualMetrics,
+} from './grid-props';
 
 /**
- * Root element for the React adapter.
+ * React data grid.
  *
- * The grid does not render cells yet. This component is the client mount
- * point: it records the adapter on the DOM node and renders `children`.
- * `theme` and `density` only set data attributes. The themes package paints them.
+ * Pass `columnDefs` to render headers, rows, and cells from the core grid API.
+ * Omit `columnDefs` to keep the mount point and render `children` only.
+ * Sorting, filtering, paging, and selection run in `@inno-grid/mygrid-core`.
+ * `onGridReady` receives that API. Theme CSS stays in `@inno-grid/mygrid-themes`.
  */
-export function MyGrid({ className, children, theme, density }: MyGridProps) {
+export function MyGrid<TData extends RowData = RowData, TContext = unknown>(
+  props: MyGridProps<TData, TContext>,
+) {
+  const api = useGridApi(props);
+  const { className, children, theme, density, columnDefs } = props;
+  const style = rootStyle(props);
+  const hasStyle = Object.keys(style).length > 0;
+
   return (
     <div
       {...(className === undefined ? {} : { className })}
       {...(theme === undefined ? {} : { 'data-mygrid-theme': theme })}
       {...(density === undefined ? {} : { 'data-mygrid-density': density })}
+      {...(hasStyle ? { style } : {})}
       data-mygrid={MYGRID_LIBRARY_NAME}
       data-mygrid-adapter={reactGridAdapter.framework}
       data-mygrid-core-version={MYGRID_CORE_VERSION}
       data-mygrid-react-version={MYGRID_REACT_VERSION}
     >
-      {children}
+      {columnDefs === undefined || api === null ? (
+        children
+      ) : (
+        <GridView
+          api={api}
+          {...(props.loading === undefined ? {} : { loading: props.loading })}
+          {...(props.numberFilterColumns === undefined
+            ? {}
+            : { numberFilterColumns: props.numberFilterColumns })}
+          {...(props.multiSortKey === undefined ? {} : { multiSortKey: props.multiSortKey })}
+          {...(props.label === undefined ? {} : { label: props.label })}
+          {...(props.rowHeight === undefined ? {} : { rowHeight: props.rowHeight })}
+          {...(props.headerHeight === undefined ? {} : { headerHeight: props.headerHeight })}
+          {...(props.rowOverscan === undefined ? {} : { rowOverscan: props.rowOverscan })}
+          {...(props.columnOverscan === undefined ? {} : { columnOverscan: props.columnOverscan })}
+          {...(props.virtualizeRows === undefined ? {} : { virtualizeRows: props.virtualizeRows })}
+          {...(props.virtualizeColumns === undefined
+            ? {}
+            : { virtualizeColumns: props.virtualizeColumns })}
+          {...(props.onVirtualMetrics === undefined
+            ? {}
+            : { onVirtualMetrics: props.onVirtualMetrics })}
+        >
+          {children}
+        </GridView>
+      )}
     </div>
   );
+}
+
+function rootStyle<TData extends RowData, TContext>(
+  props: MyGridProps<TData, TContext>,
+): CSSProperties {
+  const style: CSSProperties & Record<`--${string}`, string> = {};
+  if (typeof props.width === 'number') {
+    style.width = `${String(props.width)}px`;
+  } else if (props.width !== undefined) {
+    style.width = props.width;
+  }
+  if (typeof props.height === 'number') {
+    style.height = `${String(props.height)}px`;
+  } else if (props.height !== undefined) {
+    style.height = props.height;
+  }
+  if (props.rowHeight !== undefined) {
+    style['--mygrid-row-height'] = `${String(props.rowHeight)}px`;
+  }
+  if (props.headerHeight !== undefined) {
+    style['--mygrid-header-height'] = `${String(props.headerHeight)}px`;
+  }
+  return style;
 }

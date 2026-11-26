@@ -7,19 +7,33 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4183',
     trace: 'on-first-retry',
   },
-  webServer: {
-    command: 'pnpm --filter playground exec vite preview --host 127.0.0.1 --port 4183 --strictPort',
-    url: 'http://127.0.0.1:4183',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  webServer: [
+    {
+      command:
+        'pnpm --filter playground exec vite preview --host 127.0.0.1 --port 4183 --strictPort',
+      url: 'http://127.0.0.1:4183',
+      reuseExistingServer: !process.env.CI,
+      timeout: 120_000,
+    },
+    {
+      command: 'pnpm --filter docs exec vite preview --host 127.0.0.1 --port 4184 --strictPort',
+      url: 'http://127.0.0.1:4184',
+      reuseExistingServer: !process.env.CI,
+      timeout: 120_000,
+    },
+  ],
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      testIgnore: '**/docs.spec.ts',
+      use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4183' },
+    },
+    {
+      name: 'docs',
+      testMatch: '**/docs.spec.ts',
+      use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4184' },
     },
   ],
 });

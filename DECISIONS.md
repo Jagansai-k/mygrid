@@ -36,11 +36,11 @@ ESLint 10 is current, and `eslint-plugin-react` 7.37.5 accepts ESLint 9. This re
 
 ## D9 — Public npm packages, private repository
 
-The free npm plan cannot host private packages, so the three libraries set `publishConfig.access` to `public` and are not marked `"private": true`. The root package, apps, and examples are private. The GitHub repository is intended to be private. Access on the registry is not a license. The license field stays `UNLICENSED` until a maintainer chooses one. This foundation does not publish.
+The free npm plan cannot host private packages, so the three libraries set `publishConfig.access` to `public` and are not marked `"private": true`. The root package, apps, and examples are private. The GitHub repository is intended to be private. Access on the registry is not a license. The owner chose the MIT License, copyright (c) 2026 inno-grid. Commercial use, modification, and redistribution are permitted when the copyright and license notices are kept. The MIT warranty disclaimer applies. Release automation can open a version pull request and, after a separate approval, publish. It refuses to publish while the version is `0.0.0` or the license is not MIT. Nothing has been published.
 
 ## D10 — Linked changesets
 
-`@inno-grid/mygrid-core`, `@inno-grid/mygrid-react`, and `@inno-grid/mygrid-themes` are one linked set. An application should not have to reconcile three unrelated versions of the foundation. Apps and examples are ignored by Changesets. `changeset version` does not create a git commit (`commit: false`).
+`@inno-grid/mygrid-core`, `@inno-grid/mygrid-react`, and `@inno-grid/mygrid-themes` are one linked set. An application should not have to reconcile three unrelated versions of the foundation. Apps and examples are ignored by Changesets. `changeset version` does not create a git commit (`commit: false`). `pnpm version-packages` also copies the new version into each package's version constant. The release pull request workflow commits that result. It does not publish.
 
 ## D11 — No copied product
 
@@ -48,4 +48,4 @@ MyGrid does not vendor, transliterate, or restyle another grid's source, icons, 
 
 ## D12 — Do not stub future grid APIs
 
-The public surface is limited to what works: identity, adapter validation, the React mount, and theme tokens. Column definitions, row data, and events are not exported as empty placeholders. A later phase adds a symbol when the behavior is real and tested.
+The public surface is limited to what works. The core engine exports the column model, row model, state, events, versioned persistence, sorting, filtering, pagination, and row selection because those behaviors are implemented and tested. The React package exports row and column virtualization because that view behavior is implemented and tested. Editing and other unfinished behavior are not exported as placeholders. A later phase adds a symbol when that behavior is real and tested.

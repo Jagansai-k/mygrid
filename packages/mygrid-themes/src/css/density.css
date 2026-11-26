@@ -4,6 +4,8 @@
   --mygrid-space-cell-y: 0.5rem;
   --mygrid-font-size: 0.875rem;
   --mygrid-line-height: 1.4;
+  --mygrid-row-height: 2.5rem;
+  --mygrid-header-height: 2.75rem;
 }
 
 [data-mygrid-density='compact'] {
@@ -11,6 +13,8 @@
   --mygrid-space-cell-y: 0.25rem;
   --mygrid-font-size: 0.8125rem;
   --mygrid-line-height: 1.3;
+  --mygrid-row-height: 2rem;
+  --mygrid-header-height: 2.25rem;
 }
 
 [data-mygrid-density='comfortable'] {
@@ -18,4 +22,6 @@
   --mygrid-space-cell-y: 0.75rem;
   --mygrid-font-size: 1rem;
   --mygrid-line-height: 1.5;
+  --mygrid-row-height: 3rem;
+  --mygrid-header-height: 3.25rem;
 }

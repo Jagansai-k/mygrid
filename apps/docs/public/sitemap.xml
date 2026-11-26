@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>http://127.0.0.1:4184/</loc></url>
+  <url><loc>http://127.0.0.1:4184/installation</loc></url>
+  <url><loc>http://127.0.0.1:4184/getting-started</loc></url>
+  <url><loc>http://127.0.0.1:4184/nextjs</loc></url>
+  <url><loc>http://127.0.0.1:4184/concepts</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/sorting</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/filtering</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/pagination</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/selection</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/columns</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/virtualization</loc></url>
+  <url><loc>http://127.0.0.1:4184/guides/themes</loc></url>
+  <url><loc>http://127.0.0.1:4184/api</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/create-grid</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/grid-api</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/options</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/columns</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/rows</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/state</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/sorting</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/filtering</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/pagination</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/selection</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/react</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/events</loc></url>
+  <url><loc>http://127.0.0.1:4184/api/themes</loc></url>
+  <url><loc>http://127.0.0.1:4184/examples</loc></url>
+  <url><loc>http://127.0.0.1:4184/troubleshooting</loc></url>
+  <url><loc>http://127.0.0.1:4184/roadmap</loc></url>
+</urlset>

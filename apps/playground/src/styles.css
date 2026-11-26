@@ -162,6 +162,23 @@ a {
   color: var(--muted);
 }
 
+.dataset-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0.35rem;
+  font-size: 0.9rem;
+}
+
+.dataset-field select,
+.metrics {
+  font: inherit;
+}
+
+.metrics {
+  margin: 0.35rem 0 0.75rem;
+}
+
 .choices {
   display: flex;
   flex-wrap: wrap;
@@ -192,8 +209,10 @@ a {
 }
 
 .mount {
-  flex: 1;
-  min-height: 12rem;
+  flex: 0 0 auto;
+  height: 28rem;
+  min-height: 0;
+  max-height: 28rem;
 }
 
 .kicker {
