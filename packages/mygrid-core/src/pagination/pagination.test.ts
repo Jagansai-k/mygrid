@@ -116,7 +116,9 @@ describe('pagination', () => {
     api.setPage(0);
 
     expect(events).toEqual([]);
-    expect(() => { api.setPage(1); }).toThrow(/no pages/);
+    expect(() => {
+      api.setPage(1);
+    }).toThrow(/no pages/);
     expect(api.getCurrentPage()).toBe(0);
   });
 
@@ -140,7 +142,9 @@ describe('pagination', () => {
     expect(api.getPageCount()).toBe(1);
     expect(api.getPaginatedRowCount()).toBe(2);
     expect(events).toEqual([]);
-    expect(() => { api.setPage(1); }).toThrow(/past the last page/);
+    expect(() => {
+      api.setPage(1);
+    }).toThrow(/past the last page/);
   });
 
   it('moves to the last valid page when a filter removes the current page', () => {
@@ -199,11 +203,21 @@ describe('pagination', () => {
     const api = paged();
     api.setPage(1);
 
-    expect(() => { api.setPage(-1); }).toThrow(/integer of 0 or greater/);
-    expect(() => { api.setPage(1.5); }).toThrow(/integer of 0 or greater/);
-    expect(() => { api.setPage(9); }).toThrow(/past the last page/);
-    expect(() => { api.setPageSize(0); }).toThrow(/positive integer/);
-    expect(() => { api.setPageSize(7); }).toThrow(/not one of the page size options/);
+    expect(() => {
+      api.setPage(-1);
+    }).toThrow(/integer of 0 or greater/);
+    expect(() => {
+      api.setPage(1.5);
+    }).toThrow(/integer of 0 or greater/);
+    expect(() => {
+      api.setPage(9);
+    }).toThrow(/past the last page/);
+    expect(() => {
+      api.setPageSize(0);
+    }).toThrow(/positive integer/);
+    expect(() => {
+      api.setPageSize(7);
+    }).toThrow(/not one of the page size options/);
     expect(api.getCurrentPage()).toBe(1);
     expect(api.getPageSize()).toBe(2);
   });
@@ -230,7 +244,9 @@ describe('pagination', () => {
     expect(api.getPaginatedRowCount()).toBe(5);
     expect(api.getRowNodeAtPageIndex(4)?.id).toBe(api.getRowNodeAtIndex(4)?.id);
     api.nextPage();
-    expect(() => { api.setPage(1); }).toThrow(/Pagination is disabled/);
+    expect(() => {
+      api.setPage(1);
+    }).toThrow(/Pagination is disabled/);
     api.setPageSize(25);
 
     expect(events).toEqual(['page']);
@@ -277,7 +293,9 @@ describe('pagination', () => {
       pagination: { ...state.pagination, page: 4 },
     };
 
-    expect(() => { api.setGridState(broken); }).toThrow(/past the last page/);
+    expect(() => {
+      api.setGridState(broken);
+    }).toThrow(/past the last page/);
     expect(api.getCurrentPage()).toBe(0);
     expect(api.getRowCount()).toBe(2);
   });

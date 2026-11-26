@@ -25,18 +25,18 @@ Node.js 22 or newer is required. The root `package.json` pins pnpm 10.33.4.
 
 `pnpm dev:docs` serves the v1 documentation website on port 4184. The pages are:
 
-| Section | What it covers |
-| --- | --- |
-| Introduction | What v1 is, and what it is not. |
-| Installation | pnpm in this repository. npm and Yarn are shown as the shape of a future install. The packages are not published. |
-| Getting started | The first React grid, columns, rows, height, and theme. |
-| Next.js | App Router, the client boundary, and the theme import. |
-| Core concepts | The grid instance, ids, state, events, and version 1 persistence. |
-| Guides | Sorting, filtering, pagination, selection, columns, virtualization, and themes. |
-| API | `createGrid`, `GridApi`, options, models, React props, events, and theme exports. |
-| Examples | Live grids rendered with `@inno-grid/mygrid-react`. |
-| Troubleshooting | Install, CSS, TypeScript, hydration, ids, and performance. |
-| v1 and v2 | Shipped behavior, and plans that are not implemented. |
+| Section         | What it covers                                                                                                    |
+| --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Introduction    | What v1 is, and what it is not.                                                                                   |
+| Installation    | pnpm in this repository. npm and Yarn are shown as the shape of a future install. The packages are not published. |
+| Getting started | The first React grid, columns, rows, height, and theme.                                                           |
+| Next.js         | App Router, the client boundary, and the theme import.                                                            |
+| Core concepts   | The grid instance, ids, state, events, and version 1 persistence.                                                 |
+| Guides          | Sorting, filtering, pagination, selection, columns, virtualization, and themes.                                   |
+| API             | `createGrid`, `GridApi`, options, models, React props, events, and theme exports.                                 |
+| Examples        | Live grids rendered with `@inno-grid/mygrid-react`.                                                               |
+| Troubleshooting | Install, CSS, TypeScript, hydration, ids, and performance.                                                        |
+| v1 and v2       | Shipped behavior, and plans that are not implemented.                                                             |
 
 The site does not claim feature parity with any other grid. Editing, drag reorder, a server-side row model, infinite scrolling, grouping, pivoting, and Excel export are listed only as v2 plans.
 

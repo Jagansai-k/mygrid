@@ -18,17 +18,17 @@ Environment: pnpm 10.33.4, Node.js 22.16.0, TypeScript 6.0.3, React 19.3.1 in th
 
 The working tree was already dirty with the uncommitted v1 implementation before this audit. This audit did not revert that work.
 
-| Check | Result |
-| --- | --- |
-| `pnpm install --frozen-lockfile` | Pass. Lockfile already up to date. |
-| `pnpm build` | Pass. 7 packages, including the Next.js example. |
-| `pnpm typecheck` | Pass. 10 packages. |
-| `pnpm lint` | Pass. ESLint reported no problems. |
-| `pnpm test` | Pass. Core 100, React 54, themes 4. Playground package verification passed. |
-| `pnpm pack:check` | Pass. Archives contain the entry points, declarations, CSS, README, and LICENSE. No `workspace:` or `catalog:` protocol remains. |
-| `pnpm test:e2e` | Pass on the rerun. 6 Chromium tests in 41.9s. The first attempt failed because Playwright's Chromium binary was not installed in this environment. `pnpm exec playwright install chromium` fixed that. The tests themselves were not changed. |
-| `node scripts/assert-release-ready.mjs` | Expected failure. Blocks `0.0.0` and `UNLICENSED` on all three packages. |
-| `pnpm audit` | 2 moderate findings, both in the Storybook development dependency chain. See security. |
+| Check                                   | Result                                                                                                                                                                                                                                        |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm install --frozen-lockfile`        | Pass. Lockfile already up to date.                                                                                                                                                                                                            |
+| `pnpm build`                            | Pass. 7 packages, including the Next.js example.                                                                                                                                                                                              |
+| `pnpm typecheck`                        | Pass. 10 packages.                                                                                                                                                                                                                            |
+| `pnpm lint`                             | Pass. ESLint reported no problems.                                                                                                                                                                                                            |
+| `pnpm test`                             | Pass. Core 100, React 54, themes 4. Playground package verification passed.                                                                                                                                                                   |
+| `pnpm pack:check`                       | Pass. Archives contain the entry points, declarations, CSS, README, and LICENSE. No `workspace:` or `catalog:` protocol remains.                                                                                                              |
+| `pnpm test:e2e`                         | Pass on the rerun. 6 Chromium tests in 41.9s. The first attempt failed because Playwright's Chromium binary was not installed in this environment. `pnpm exec playwright install chromium` fixed that. The tests themselves were not changed. |
+| `node scripts/assert-release-ready.mjs` | Expected failure. Blocks `0.0.0` and `UNLICENSED` on all three packages.                                                                                                                                                                      |
+| `pnpm audit`                            | 2 moderate findings, both in the Storybook development dependency chain. See security.                                                                                                                                                        |
 
 ## 3. Package distribution audit
 
@@ -64,15 +64,15 @@ No v2 feature was added.
 
 No Critical or High finding was identified in the library runtime.
 
-| Severity | Finding |
-| --- | --- |
-| Medium | None in the published runtime. |
-| Low | `pnpm audit` reports two moderate advisories in development dependencies only: `glob` `GHSA-3g3m-2fjr-6pw4` (patched in `>=14.0.2`) and `minimatch` `GHSA-g3hv-75wg-m249` (patched in `>=11.0.1`). The path is `@storybook/react-vite` and its docgen plugin. Those packages are not part of the published `dist`. They do not run in a consumer grid. An automatic upgrade was not applied. |
-| Low | `.github/workflows/ci.yml` does not set a `permissions` block, so the job uses the repository's default `GITHUB_TOKEN` permissions. The job installs, tests, and packs. It does not publish. |
-| Informational | Cell values are rendered as React text children through `cellText`. The view does not use `dangerouslySetInnerHTML`, `innerHTML`, `eval`, or `new Function`. |
-| Informational | Serialization rejects non-plain objects, non-finite numbers, functions, cycles, and unknown snapshot keys before the snapshot is restored. This limits prototype pollution through the persistence API. A hostile snapshot can still be large. The engine keeps the full row list in memory. That is a host-controlled allocation, not a remote parser exposed by this repository. |
-| Informational | `destroy()` and the React unmount path drop listeners. Scroll and resize listeners are removed. |
-| Informational | `pack:check` looks for private-key, npm-token, GitHub-token, and AWS-key patterns, and for local user paths. This audit's archives passed. No token was added to the repository or the report. |
+| Severity      | Finding                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Medium        | None in the published runtime.                                                                                                                                                                                                                                                                                                                                                                           |
+| Low           | `pnpm audit` reports two moderate advisories in development dependencies only: `glob` `GHSA-3g3m-2fjr-6pw4` (patched in `>=14.0.2`) and `minimatch` `GHSA-g3hv-75wg-m249` (patched in `>=11.0.1`). The path is `@storybook/react-vite` and its docgen plugin. Those packages are not part of the published `dist`. They do not run in a consumer grid. An automatic upgrade was not applied.             |
+| Low           | `.github/workflows/ci.yml` does not set a `permissions` block, so the job uses the repository's default `GITHUB_TOKEN` permissions. The job installs, tests, and packs. It does not publish.                                                                                                                                                                                                             |
+| Informational | Cell values are rendered as React text children through `cellText`. The view does not use `dangerouslySetInnerHTML`, `innerHTML`, `eval`, or `new Function`.                                                                                                                                                                                                                                             |
+| Informational | Serialization rejects non-plain objects, non-finite numbers, functions, cycles, and unknown snapshot keys before the snapshot is restored. This limits prototype pollution through the persistence API. A hostile snapshot can still be large. The engine keeps the full row list in memory. That is a host-controlled allocation, not a remote parser exposed by this repository.                       |
+| Informational | `destroy()` and the React unmount path drop listeners. Scroll and resize listeners are removed.                                                                                                                                                                                                                                                                                                          |
+| Informational | `pack:check` looks for private-key, npm-token, GitHub-token, and AWS-key patterns, and for local user paths. This audit's archives passed. No token was added to the repository or the report.                                                                                                                                                                                                           |
 | Informational | Publish is `workflow_dispatch` only, requires the input `publish`, requires ref `main`, uses the `npm` environment, sets `contents: read` and `id-token: write`, and does not set `NODE_AUTH_TOKEN` or `registry-url`. `pnpm release:publish` runs the version and license guard before `npm publish`, then publishes core, themes, and React in that order. It skips a version already on the registry. |
 
 ## 6. Performance results
@@ -81,27 +81,27 @@ These numbers are one session on this Windows machine. They are not a service le
 
 Engine medians, in milliseconds, from Vitest in Node:
 
-| Rows | Sort, 1 column | Sort, 2 columns | Filter, one column | Filter, two columns | Filter plus sort | Change page | Select all source rows |
-| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1,000 | 2.59 | 3.46 | 6.09 | 3.02 | 3.17 | 1.38 | 0.74 |
-| 10,000 | 26.96 | 46.86 | 13.93 | 12.44 | 29.85 | 7.20 | 8.51 |
-| 50,000 | 167.73 | 407.97 | 93.40 | 72.19 | 151.25 | 51.39 | 48.07 |
-| 100,000 | 368.58 | 841.24 | 155.39 | 126.41 | 448.33 | 142.25 | 98.28 |
+|    Rows | Sort, 1 column | Sort, 2 columns | Filter, one column | Filter, two columns | Filter plus sort | Change page | Select all source rows |
+| ------: | -------------: | --------------: | -----------------: | ------------------: | ---------------: | ----------: | ---------------------: |
+|   1,000 |           2.59 |            3.46 |               6.09 |                3.02 |             3.17 |        1.38 |                   0.74 |
+|  10,000 |          26.96 |           46.86 |              13.93 |               12.44 |            29.85 |        7.20 |                   8.51 |
+|  50,000 |         167.73 |          407.97 |              93.40 |               72.19 |           151.25 |       51.39 |                  48.07 |
+| 100,000 |         368.58 |          841.24 |             155.39 |              126.41 |           448.33 |      142.25 |                  98.28 |
 
 Sorting is a comparison sort over an index array, so the cost grows faster than the row count. Filtering walks the rows. Page changes do not copy the full row list into the DOM. Select-all records every source id. The combined filter, sort, and page sample at 100,000 rows had a median of 564.02 ms. Row lookup by id uses a `Map`.
 
 jsdom virtualization benchmark, not a browser:
 
-| Rows | Mode | DOM rows | DOM cells | Initial ms | Scroll ms |
-| ---: | --- | ---: | ---: | ---: | ---: |
-| 1,000 | virtual rows only | 23 | 276 | 712.90 | 618.86 |
-| 1,000 | rows and columns | 23 | 184 | 526.78 | 290.72 |
-| 10,000 | virtual rows only | 23 | 276 | 272.47 | 129.16 |
-| 10,000 | rows and columns | 23 | 184 | 265.18 | 136.52 |
-| 50,000 | virtual rows only | 23 | 276 | 557.08 | 190.34 |
-| 50,000 | rows and columns | 23 | 184 | 296.32 | 108.13 |
-| 100,000 | virtual rows only | 23 | 276 | 526.42 | 212.40 |
-| 100,000 | rows and columns | 23 | 184 | 444.97 | 301.91 |
+|    Rows | Mode              | DOM rows | DOM cells | Initial ms | Scroll ms |
+| ------: | ----------------- | -------: | --------: | ---------: | --------: |
+|   1,000 | virtual rows only |       23 |       276 |     712.90 |    618.86 |
+|   1,000 | rows and columns  |       23 |       184 |     526.78 |    290.72 |
+|  10,000 | virtual rows only |       23 |       276 |     272.47 |    129.16 |
+|  10,000 | rows and columns  |       23 |       184 |     265.18 |    136.52 |
+|  50,000 | virtual rows only |       23 |       276 |     557.08 |    190.34 |
+|  50,000 | rows and columns  |       23 |       184 |     296.32 |    108.13 |
+| 100,000 | virtual rows only |       23 |       276 |     526.42 |    212.40 |
+| 100,000 | rows and columns  |       23 |       184 |     444.97 |    301.91 |
 
 With virtualization left on, the mounted row count stayed at 23 while the source grew to 100,000. Turning virtualization off mounted every row: 1,000 rows produced 12,000 cells in 8,974 ms, and 10,000 rows produced 120,000 cells in 69,280 ms, both single jsdom runs. The bench does not mount 50,000 or 100,000 rows without virtualization. A host that sets `virtualizeRows` to false on a large page pays for every row in the DOM.
 

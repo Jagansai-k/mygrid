@@ -48,7 +48,9 @@ describe('row selection', () => {
 
     expect(api.getSelectedRowIds()).toEqual(['1']);
     expect(api.getSelectedRows().map((row) => row.name)).toEqual(['Ada']);
-    expect(() => { api.setSelectedRowIds(['1', '2']); }).toThrow(/one row/);
+    expect(() => {
+      api.setSelectedRowIds(['1', '2']);
+    }).toThrow(/one row/);
     expect(api.getSelectedRowIds()).toEqual(['1']);
   });
 
@@ -75,10 +77,18 @@ describe('row selection', () => {
   it('rejects selection while it is disabled and still allows a clear', () => {
     const api = grid('none');
 
-    expect(() => { api.selectRow('1'); }).toThrow(/disabled/);
-    expect(() => { api.selectAllFilteredRows(); }).toThrow(/disabled/);
-    expect(() => { api.selectAllSourceRows(); }).toThrow(/disabled/);
-    expect(() => { api.setSelectedRowIds(['1']); }).toThrow(/disabled/);
+    expect(() => {
+      api.selectRow('1');
+    }).toThrow(/disabled/);
+    expect(() => {
+      api.selectAllFilteredRows();
+    }).toThrow(/disabled/);
+    expect(() => {
+      api.selectAllSourceRows();
+    }).toThrow(/disabled/);
+    expect(() => {
+      api.setSelectedRowIds(['1']);
+    }).toThrow(/disabled/);
     api.clearSelection();
     expect(api.getSelectedRowIds()).toEqual([]);
   });
@@ -144,9 +154,15 @@ describe('row selection', () => {
     const api = grid();
     api.selectRow('1');
 
-    expect(() => { api.selectRow('missing'); }).toThrow(/does not exist/);
-    expect(() => { api.deselectRow('missing'); }).toThrow(/does not exist/);
-    expect(() => { api.toggleRowSelection(''); }).toThrow(/non-empty string/);
+    expect(() => {
+      api.selectRow('missing');
+    }).toThrow(/does not exist/);
+    expect(() => {
+      api.deselectRow('missing');
+    }).toThrow(/does not exist/);
+    expect(() => {
+      api.toggleRowSelection('');
+    }).toThrow(/non-empty string/);
     expect(api.getSelectedRowIds()).toEqual(['1']);
   });
 

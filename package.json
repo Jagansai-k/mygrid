@@ -48,7 +48,7 @@
     "typescript-eslint": "catalog:"
   },
   "repository": {
-  "type": "git",
-  "url": "https://github.com/Jagansai-k/mygrid.git"
-}
+    "type": "git",
+    "url": "https://github.com/Jagansai-k/mygrid.git"
+  }
 }

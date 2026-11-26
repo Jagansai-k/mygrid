@@ -9,7 +9,7 @@ The npm organization is `inno-grid`. Publishable packages use the scope `@inno-g
 | Package                    | Role                                                         |
 | -------------------------- | ------------------------------------------------------------ |
 | `@inno-grid/mygrid-core`   | Framework-independent TypeScript. No React and no DOM types. |
-| `@inno-grid/mygrid-react`  | React 19 client grid. Behavior stays in the core package. |
+| `@inno-grid/mygrid-react`  | React 19 client grid. Behavior stays in the core package.    |
 | `@inno-grid/mygrid-themes` | Opt-in default, light, dark, and density stylesheets.        |
 
 Applications import the theme themselves:

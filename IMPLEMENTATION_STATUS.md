@@ -111,12 +111,12 @@ These phases are the intended order, not a commitment that every item ships, and
 | ----- | ------------------------------------------------------------------------------------------- | ----------- |
 | 1     | Core engine: columns, rows, state, API, events, and versioned persistence                   | Implemented |
 | 2     | A framework-neutral description of cells, still without touching the DOM during module init | Not started |
-| 3     | React rendering of the current page                                                             | Implemented |
-| 4     | Theme rules for the rendered table                                                              | Implemented |
-| 5     | Sorting and filtering as core behavior, then React wiring                                       | Implemented |
-| 6     | Editing                                                                                         | Not started |
-| 7     | Virtualization                                                                                  | Implemented |
-| 8     | Keyboard behavior and accessibility of the real grid                                            | Partial     |
+| 3     | React rendering of the current page                                                         | Implemented |
+| 4     | Theme rules for the rendered table                                                          | Implemented |
+| 5     | Sorting and filtering as core behavior, then React wiring                                   | Implemented |
+| 6     | Editing                                                                                     | Not started |
+| 7     | Virtualization                                                                              | Implemented |
+| 8     | Keyboard behavior and accessibility of the real grid                                        | Partial     |
 | 9     | Another framework adapter that depends on core and not on the React package                 | Not started |
 
 Each later phase should land with tests in the package that owns the behavior. Do not stub a phase in the public API before it works.

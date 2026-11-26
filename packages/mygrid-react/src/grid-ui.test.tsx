@@ -214,12 +214,12 @@ describe('MyGrid data grid', () => {
     fireEvent.click(screen.getByRole('checkbox', { name: 'Select row 1' }));
     fireEvent.click(screen.getByRole('checkbox', { name: 'Select row 2' }));
 
-    expect(
-      screen.getByRole<HTMLInputElement>('checkbox', { name: 'Select row 1' }).checked,
-    ).toBe(false);
-    expect(
-      screen.getByRole<HTMLInputElement>('checkbox', { name: 'Select row 2' }).checked,
-    ).toBe(true);
+    expect(screen.getByRole<HTMLInputElement>('checkbox', { name: 'Select row 1' }).checked).toBe(
+      false,
+    );
+    expect(screen.getByRole<HTMLInputElement>('checkbox', { name: 'Select row 2' }).checked).toBe(
+      true,
+    );
     expect(screen.getByRole('status').textContent).toContain('1 selected');
   });
 

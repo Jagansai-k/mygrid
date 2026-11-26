@@ -43,8 +43,8 @@
     "vitest": "catalog:"
   },
   "repository": {
-  "type": "git",
-  "url": "https://github.com/Jagansai-k/mygrid.git",
-  "directory": "packages/mygrid-core"
-}
+    "type": "git",
+    "url": "https://github.com/Jagansai-k/mygrid.git",
+    "directory": "packages/mygrid-core"
+  }
 }

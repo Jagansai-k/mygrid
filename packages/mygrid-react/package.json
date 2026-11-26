@@ -61,9 +61,9 @@
     "vite-plugin-dts": "catalog:",
     "vitest": "catalog:"
   },
-"repository": {
-  "type": "git",
-  "url": "https://github.com/Jagansai-k/mygrid.git",
-  "directory": "packages/mygrid-react"
-}
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jagansai-k/mygrid.git",
+    "directory": "packages/mygrid-react"
+  }
 }
