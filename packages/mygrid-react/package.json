@@ -1,6 +1,6 @@
 {
   "name": "@inno-grid/mygrid-react",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "React adapter for MyGrid. Renders the core grid in a client component.",
   "license": "MIT",
   "type": "module",
